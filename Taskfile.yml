@@ -1,0 +1,47 @@
+version: '3'
+
+tasks:
+  init:
+    desc: "init this packages dev depends"
+    cmds:
+      - poetry install
+      - poetry lock
+
+  init_repo:
+    desc: "Create two remote branches for development and documentation deployment"
+    cmds:
+      - git checkout -b dev
+      - git push origin dev
+      - git checkout -b gh-pages
+      - git push origin gh-pages
+      - git branch -M master
+      - git push -u origin master
+
+  lint:
+    desc: "Lint this package"
+    cmds:
+      - ruff check --fix
+      - pre-commit run --all-files --color always
+
+  test:
+    desc: "Test this package"
+    cmds:
+      - poetry run coverage run
+      - poetry run coverage report
+      - poetry run coverage xml
+
+  docs_serve:
+    desc: "open docs_ server"
+    cmds:
+      - poetry run mkdocs serve {{.CLI_ARGS}}
+
+  deploy_pages:
+    desc: "deploy new docs pages"
+    cmds:
+      - poetry install --with docs
+      - poetry run mkdocs gh-deploy --remote-branch gh-pages --force
+
+  build:
+    desc: "Build the package"
+    cmds:
+      - poetry build

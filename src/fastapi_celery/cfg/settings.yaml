@@ -1,0 +1,9 @@
+default:
+    name: ''
+    # global_cfg_layering
+development:
+    name: developer
+    # development_environment_cfg
+production:
+    name: admin
+    # production_environment_cfg
