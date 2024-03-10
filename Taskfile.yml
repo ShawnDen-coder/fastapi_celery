@@ -7,16 +7,6 @@ tasks:
       - poetry install
       - poetry lock
 
-  init_repo:
-    desc: "Create two remote branches for development and documentation deployment"
-    cmds:
-      - git checkout -b dev
-      - git push origin dev
-      - git checkout -b gh-pages
-      - git push origin gh-pages
-      - git branch -M master
-      - git push -u origin master
-
   lint:
     desc: "Lint this package"
     cmds:
@@ -45,3 +35,8 @@ tasks:
     desc: "Build the package"
     cmds:
       - poetry build
+
+  celery:
+    desc: "statr celery worker"
+    cmds:
+      - celery -A fastapi_celery.celerys.celery worker -l info -P eventlet

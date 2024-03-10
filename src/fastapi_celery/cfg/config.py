@@ -7,7 +7,7 @@ current_directory = os.path.dirname(os.path.realpath(__file__))
 settings = Dynaconf(
     root_path=current_directory,
     environments=True,
-    envvar_prefix="DYNACONF",
+    envvar_prefix="CFG",
     settings_files=['settings.yaml', '.secrets.yaml'],
     load_dotenv=True
 )
